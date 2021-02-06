@@ -1,9 +1,11 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
+from pydantic import BaseSettings
 
 
-class SettingsModel(BaseModel):
+class SettingsModel(BaseSettings):
     shouldFixCasing: bool = False
+    normalizeFirstName: bool = False
+    spellCheckEnabled: bool = False
     verbose: bool = False
 
 
