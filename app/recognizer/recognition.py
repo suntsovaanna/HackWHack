@@ -1,3 +1,4 @@
+import re
 from typing import Dict
 
 
@@ -6,6 +7,7 @@ class NameRecognizer(object):
         self.parser = name_parser
 
     def __call__(self, text) -> Dict:
+        text = self.clear_data(text)
         model = {}
         for name in self.parser.findall(text):
             name = name.fact
@@ -16,3 +18,6 @@ class NameRecognizer(object):
             }
 
         return model
+
+    def clear_data(self, text):
+        return re.sub(r'\(.+?\)\s', '', text)
