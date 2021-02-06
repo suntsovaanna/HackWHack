@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from functools import lru_cache
 from recognizer.recognition import NameRecognizer
 from recognizer.grammars import name_parser
-from spellchecker import SpellChecker
 
 router = APIRouter()
 
@@ -20,9 +19,9 @@ def get_named_parser():
 
 NAME_RECOGNIZER = Depends(get_named_parser)
 
-spell = SpellChecker(language=None, case_sensitive=False)
-spell.word_frequency.load_text_file('../data/first.txt')
-spell.word_frequency.load_text_file('../data/last.txt')
+# spell = SpellChecker(language=None, case_sensitive=False)
+# spell.word_frequency.load_text_file('../data/first.txt')
+# spell.word_frequency.load_text_file('../data/last.txt')
 
 
 def correct(part: str):
@@ -41,10 +40,10 @@ def correction(name: str):
 
 @router.post('/name')
 def parse_name(data: NameQuery, name_recognizer: NameRecognizer = NAME_RECOGNIZER):
-    parts = data.fullName.split(sep=' ')
-    lower_parts = [correct(part) for part in parts]
-    joined = ' '.join(lower_parts)
-    return joined, name_recognizer(joined)
+    # parts = data.fullName.split(sep=' ')
+    # lower_parts = [correct(part) for part in parts]
+    # joined = ' '.join(lower_parts)
+    return name_recognizer(data.fullName)
 
 
 @router.post('/names')
