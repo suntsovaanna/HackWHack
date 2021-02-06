@@ -17,7 +17,7 @@ class NameRecognizer(object):
         text = str(text)
         text = translit(text, "ru")
         text_cleaned, text_deleted = self.clear_data(text)
-        text_cleaned = ' '.join([correct(text_cl) for text_cl in text_cleaned.split()])
+        # text_cleaned = ' '.join([correct(text_cl) for text_cl in text_cleaned.split()])
 
         model = {'error': 'Сущность не распознана'}
         _text = list(text_cleaned)
@@ -77,7 +77,7 @@ def is_name(word):
     flag = False
     for p in morph.parse(word):
         for q in QWE:
-            if q in list(p.tag.grammemes) and p[3] > 0.7:
+            if q in list(p.tag.grammemes) and p[3] > 0.45:
                 flag = True
 
     return flag

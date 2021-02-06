@@ -50,7 +50,7 @@ FIRST_EASY = and_(
         FIRST_OC,
         IN_FIRST
     ),
-    # TITLE,
+    TITLE,
     not_(ABBR_OC),
 )
 
@@ -75,7 +75,7 @@ LAST = and_(
         IN_LAST,
         LAST_OC,
     ),
-    # TITLE,
+    TITLE,
     not_(ABBR_OC),
 ).interpretation(
     Name.last
@@ -86,7 +86,7 @@ LAST = and_(
 
 MIDDLE = and_(
     MIDDLE_OC,
-    # TITLE,
+    TITLE,
 ).interpretation(
     Name.middle
 )
