@@ -19,7 +19,7 @@ class NameRecognizer(object):
         text_cleaned, text_deleted = self.clear_data(text)
         text_cleaned = ' '.join([correct(text_cl) for text_cl in text_cleaned.split()])
 
-        model = {}
+        model = {'error': 'Сущность не распознана'}
         _text = list(text_cleaned)
         for name in self.parser.findall(text_cleaned):
             name = name.fact
@@ -77,7 +77,7 @@ def is_name(word):
     flag = False
     for p in morph.parse(word):
         for q in QWE:
-            if q in list(p.tag.grammemes):
+            if q in list(p.tag.grammemes) and p[3] > 0.7:
                 flag = True
 
     return flag
