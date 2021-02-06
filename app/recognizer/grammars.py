@@ -41,6 +41,7 @@ IN_LAST = dictionary(LAST_DICT)
 FIRST_OC = gram('Name')
 LAST_OC = gram('Surn')
 MIDDLE_OC = gram('Patr')
+ABBR_OC = gram('Abbr')
 
 
 # FIRST
@@ -49,7 +50,8 @@ FIRST_EASY = and_(
         FIRST_OC,
         IN_FIRST
     ),
-    TITLE
+    TITLE,
+    not_(ABBR_OC),
 )
 
 FIRST_HARD = rule(
@@ -74,6 +76,7 @@ LAST = and_(
         LAST_OC,
     ),
     TITLE,
+    not_(ABBR_OC),
 ).interpretation(
     Name.last
 )
