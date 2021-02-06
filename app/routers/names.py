@@ -13,10 +13,6 @@ class NameQuery(BaseModel):
     fullName: str
 
 
-class BulkNameQuery(BaseModel):
-    fullNames: List[str]
-
-
 @lru_cache()
 def get_named_parser():
     return NameRecognizer(name_parser)
@@ -26,10 +22,10 @@ NAME_RECOGNIZER = Depends(get_named_parser)
 
 
 @router.post('/name')
-async def parse_name(data: NameQuery, name_recognizer: NameRecognizer = NAME_RECOGNIZER):
+def parse_name(data: NameQuery, name_recognizer: NameRecognizer = NAME_RECOGNIZER):
     return name_recognizer(data.fullName)
 
 
 @router.post('/names')
-async def parse_name_array(data: BulkNameQuery):
-    return data.fullNames[0]
+async def parse_name_array(data: List[NameQuery]):
+    return [parse_name(name) for name in data]
