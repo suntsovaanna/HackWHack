@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  name_recognition:
+    build:
+      context: ../HackWHack
+      dockerfile: ./app/Dockerfile
+    volumes:
+      - ../HackWHack:/HackWHack
+    ports:
+      - 9000:80
